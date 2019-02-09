@@ -3,12 +3,16 @@
 $_['heading_title'] = 'Интернет-эквайринг Модульбанк';
 
 // Text
-$_['text_extension'] = 'Extensions';
-$_['text_success']   = 'Success: You have modified Modulbank settings!';
+$_['text_extension'] = 'Расширения';
+$_['text_success']   = 'Настройки Модульбанка сохранены';
 $_['text_edit']      = 'Настройки Интернет-эквайринга Модульбанк';
 
-$_['text_mode_test']      = 'Test';
-$_['text_mode_prod']      = 'Prod';
+$_['text_mode_test'] = 'Тестовый';
+$_['text_mode_prod'] = 'Боевой';
+
+$_['text_logging_off']   = 'Выключено';
+$_['text_logging_on']    = 'Включено';
+$_['text_download_logs'] = 'Скачать логи';
 
 $_['text_vat_0']      = 'Брать из настроек товара';
 $_['text_vat_none']   = 'Без НДС';
@@ -47,11 +51,16 @@ $_['text_po_agent_commission']      = 'Агентское вознагражде
 $_['text_po_composite']             = 'Составной предмет расчета';
 $_['text_po_another']               = 'Другое';
 
-$_['text_modulbank'] = '<img src="view/image/payment/modulbak.png" alt="Модульбанк" title="Модульбанк" style="border: 1px solid #EEEEEE;" />';
+$_['text_modulbank'] = '<img src="view/image/payment/modulbank.png" alt="Модульбанк" title="Модульбанк" style="border: 1px solid #EEEEEE;" />';
 
 // Entry
+$_['entry_paymentname']             = 'Название способа оплаты';
 $_['entry_merchant']                = 'Мерчант';
 $_['entry_secret_key']              = 'Секретный ключ';
+$_['entry_test_secret_key']         = 'Тестовый секретный ключ';
+$_['entry_success_url']             = 'Адрес для перехода после успешной оплаты';
+$_['entry_fail_url']                = 'Адрес для перехода после ошибки при оплате';
+$_['entry_back_url']                = 'Адрес для перехода в случае нажатия кнопки «Вернуться в магазин»';
 $_['entry_mode']                    = 'Режим';
 $_['entry_sno']                     = 'Система налогообложения';
 $_['entry_product_vat']             = 'Ставка НДС на товары';
@@ -59,17 +68,20 @@ $_['entry_delivery_vat']            = 'Ставка НДС на доставку
 $_['entry_payment_method']          = 'Метод платежа';
 $_['entry_payment_object']          = 'Предмет расчёта';
 $_['entry_payment_object_delivery'] = 'Предмет расчёта на доставку';
-$_['entry_total']                   = 'Total';
-$_['entry_order_status']            = 'Order Status';
-$_['entry_order_refund_status']     = 'Refund status';
-$_['entry_geo_zone']                = 'Geo Zone';
-$_['entry_status']                  = 'Status';
-$_['entry_sort_order']              = 'Sort Order';
+$_['entry_total']                   = 'Сумма';
+$_['entry_order_status']            = 'Статус оплаченного заказа';
+$_['entry_order_refund_status']     = 'Статус возврата заказа';
+$_['entry_geo_zone']                = 'Гео зона';
+$_['entry_status']                  = 'Статус';
+$_['entry_sort_order']              = 'Сортировка';
+$_['entry_logging']                 = 'Логирование';
+$_['entry_log_size_limit']          = 'Ограничение размеров лога (Mb)';
 
 // Help
 $_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify payment Modulbank!';
-$_['error_merchant']   = 'Merchant ID Required!';
-$_['error_secret_key'] = 'Secret key Required!';
+$_['error_permission']  = 'Warning: You do not have permission to modify payment Modulbank!';
+$_['error_merchant']    = 'Merchant ID не указан!';
+$_['error_secret_key']  = 'Секретный ключ не указан!';
+$_['error_paymentname'] = 'Не указано название способа оплаты';

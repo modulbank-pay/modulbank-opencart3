@@ -1,0 +1,46 @@
+<modification>
+  <name>Модульбанк: Интернет-Эквайринг</name>
+  <code>modulbank_payment</code>
+  <version>1.0.0</version>
+  <author>АО КБ «Модульбанк»</author>
+  <link>https://modulbank.ru</link>
+  <file path="catalog/model/checkout/order.php">
+    <operation>
+
+      <search><![CDATA[
+  $this->cache->delete('product');
+      ]]></search>
+
+      <add position="after"><![CDATA[
+        $this->load->model('extension/payment/modulbank');
+        $this->model_extension_payment_modulbank->onOrderUpdate($order_id, $order_status_id);
+      ]]></add>
+
+    </operation>
+  </file>
+  <file path="catalog/controller/checkout/success.php">
+    <operation>
+
+      <search><![CDATA[
+  $data['continue'] = $this->url->link('common/home');
+      ]]></search>
+
+      <add position="before"><![CDATA[
+        $this->load->language('extension/payment/modulbank');
+    $this->load->model('extension/payment/modulbank');
+    if ($this->request->get['transaction_id']){
+      $data['text_message'] .= "<div class='modulbank_payment_status'>";
+      $result = $this->model_extension_payment_modulbank->getTransactionStatus($this->request->get['transaction_id']);
+      if (isset($result->status) && $result->status == "ok") {
+        $data['text_message'] .= $this->language->get('modulebank_message_'.strtolower($result->transaction->state));
+      } else {
+        $data['text_message'] .= $this->language->get('modulebank_message_waiting');
+      }
+      $data['text_message'] .= "</div>";
+
+    }
+      ]]></add>
+
+    </operation>
+  </file>
+</modification>

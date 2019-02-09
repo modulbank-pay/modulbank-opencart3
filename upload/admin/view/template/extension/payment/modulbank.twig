@@ -26,6 +26,15 @@
       <div class="panel-body">
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
           <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-paymentname">{{ entry_paymentname }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_paymentname" value="{{ payment_modulbank_paymentname }}" placeholder="{{ entry_paymentname }}" id="input-paymentname" class="form-control" />
+              {% if error_paymentname %}
+              <div class="text-danger">{{ error_paymentname }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-merchant">{{ entry_merchant }}</label>
             <div class="col-sm-10">
               <input type="text" name="payment_modulbank_merchant" value="{{ payment_modulbank_merchant }}" placeholder="{{ entry_merchant }}" id="input-merchant" class="form-control" />
@@ -34,7 +43,7 @@
               {% endif %}
             </div>
           </div>
-          <div class="form-group required">
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-secret_key">{{ entry_secret_key }}</label>
             <div class="col-sm-10">
               <input type="text" name="payment_modulbank_secret_key" value="{{ payment_modulbank_secret_key }}" placeholder="{{ entry_secret_key }}" id="input-secret_key" class="form-control" />
@@ -44,19 +53,49 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-test_secret_key">{{ entry_test_secret_key }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_test_secret_key" value="{{ payment_modulbank_test_secret_key }}" placeholder="{{ entry_test_secret_key }}" id="input-test_secret_key" class="form-control" />
+              {% if error_test_secret_key %}
+              <div class="text-danger">{{ error_test_secret_key }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-success_url">{{ entry_success_url }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_success_url" value="{{ payment_modulbank_success_url }}" placeholder="{{ entry_success_url }}" id="input-success_url" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-fail_url">{{ entry_fail_url }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_fail_url" value="{{ payment_modulbank_fail_url }}" placeholder="{{ entry_fail_url }}" id="input-fail_url" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-back_url">{{ entry_back_url }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_back_url" value="{{ payment_modulbank_back_url }}" placeholder="{{ entry_back_url }}" id="input-back_url" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-mode">{{ entry_mode }}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_mode" id="input-mode" class="form-control">
                 {% if payment_modulbank_mode == 'test' %}
-                <option value="test" selected="selected">Тестовый</option>
+                <option value="test" selected="selected">{{ text_mode_test }}</option>
                 {% else %}
-                <option value="test">Тестовый</option>
+                <option value="test">{{ text_mode_test }}</option>
                 {% endif %}
                 {% if payment_modulbank_mode == 'prod' %}
-                <option value="prod" selected="selected">Боевой</option>
+                <option value="prod" selected="selected">{{ text_mode_prod }}</option>
                 {% else %}
-                <option value="prod">Боевой</option>
-                {% endif %}>
+                <option value="prod">{{ text_mode_prod }}</option>
+                {% endif %}
               </select>
             </div>
           </div>
@@ -64,11 +103,11 @@
             <label class="col-sm-2 control-label" for="input-sno">{{ entry_sno }}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_sno" id="input-sno" class="form-control">
-                {% for sno_list in sno %}
-                {% if loop.index == payment_modulbank_sno %}
-                <option value="{{ loop.index }}" selected="selected">{{ sno }}</option>
+                {% for key, sno in sno_list %}
+                {% if key == payment_modulbank_sno %}
+                <option value="{{ key }}" selected="selected">{{ sno }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ sno }}</option>
+                <option value="{{ key }}">{{ sno }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -78,11 +117,12 @@
             <label class="col-sm-2 control-label" for="input-product-vat">{{ entry_product_vat }}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_product_vat" id="input-product-vat" class="form-control">
-                {% for vat_list in vat %}
-                {% if loop.index == payment_modulbank_product_vat %}
-                <option value="{{ loop.index }}" selected="selected">{{ vat }}</option>
+                <option value="0" >{{ text_vat_0 }}</option>
+                {% for key, vat in vat_list %}
+                {% if key == payment_modulbank_product_vat %}
+                <option value="{{ key }}" selected="selected">{{ vat }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ vat }}</option>
+                <option value="{{ key }}">{{ vat }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -92,11 +132,11 @@
             <label class="col-sm-2 control-label" for="input-delivery-vat">{{ entry_delivery_vat }}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_delivery_vat" id="input-delivery-vat" class="form-control">
-                {% for vat_list in vat %}
-                {% if loop.index == payment_modulbank_delivery_vat %}
-                <option value="{{ loop.index }}" selected="selected">{{ vat }}</option>
+                {% for key, vat in vat_list %}
+                {% if key == payment_modulbank_delivery_vat %}
+                <option value="{{ key }}" selected="selected">{{ vat }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ vat }}</option>
+                <option value="{{ key }}">{{ vat }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -106,11 +146,11 @@
             <label class="col-sm-2 control-label" for="input-payment-method">{{ entry_payment_method}}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_payment_method" id="input-payment-method" class="form-control">
-                {% for payment_method_list in method %}
-                {% if loop.index == payment_modulbank_payment_method %}
-                <option value="{{ loop.index }}" selected="selected">{{ method }}</option>
+                {% for key, method in payment_method_list %}
+                {% if key == payment_modulbank_payment_method %}
+                <option value="{{ key }}" selected="selected">{{ method }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ method }}</option>
+                <option value="{{ key }}">{{ method }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -119,12 +159,12 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-object-method">{{ entry_payment_object }}</label>
             <div class="col-sm-10">
-              <select name="object_modulbank_object_method" id="input-object-method" class="form-control">
-                {% for object_method_list in object %}
-                {% if loop.index == payment_modulbank_object_method %}
-                <option value="{{ loop.index }}" selected="selected">{{ object }}</option>
+              <select name="payment_modulbank_payment_object" id="input-object-method" class="form-control">
+                {% for key, object in payment_object_list %}
+                {% if key == payment_modulbank_payment_object %}
+                <option value="{{ key }}" selected="selected">{{ object }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ object }}</option>
+                <option value="{{ key }}">{{ object }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -133,12 +173,12 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-object-method-delivery">{{ entry_payment_object_delivery }}</label>
             <div class="col-sm-10">
-              <select name="object_modulbank_object_method_delivery" id="input-object-method-delivery" class="form-control">
-                {% for object_method_list in object %}
-                {% if loop.index == payment_modulbank_object_method_delivery %}
-                <option value="{{ loop.index }}" selected="selected">{{ object }}</option>
+              <select name="payment_modulbank_payment_object_delivery" id="input-object-method-delivery" class="form-control">
+                {% for key, object in payment_object_list %}
+                {% if key == payment_modulbank_payment_object_delivery %}
+                <option value="{{ key }}" selected="selected">{{ object }}</option>
                 {% else %}
-                <option value="{{ loop.index }}">{{ object }}</option>
+                <option value="{{ key }}">{{ object }}</option>
                 {% endif %}
                 {% endfor %}
               </select>
@@ -167,7 +207,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_refund_status }}</label>
             <div class="col-sm-10">
-              <select name="payment_modulbank_order_status_id" id="input-order-status" class="form-control">
+              <select name="payment_modulbank_refund_order_status_id" id="input-order-status" class="form-control">
                 {% for order_status in order_statuses %}
                 {% if order_status.order_status_id == payment_modulbank_refund_order_status_id %}
                 <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
@@ -178,6 +218,34 @@
               </select>
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-mode">{{ entry_logging }}</label>
+            <div class="col-sm-10">
+              <select name="payment_modulbank_logging" id="input-logging" class="form-control">
+                {% if payment_modulbank_logging == '0' %}
+                <option value="0" selected="selected">{{ text_logging_off }}</option>
+                {% else %}
+                <option value="0">{{ text_logging_off }}</option>
+                {% endif %}
+                {% if payment_modulbank_logging == '1' %}
+                <option value="1" selected="selected">{{ text_logging_on }}</option>
+                {% else %}
+                <option value="1">{{ text_logging_on }}</option>
+                {% endif %}
+              </select>
+              &nbsp;
+              <a href="{{ text_log_link }}">{{ text_download_logs}}</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-log_size_limit">{{ entry_log_size_limit }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_modulbank_log_size_limit" value="{{ payment_modulbank_log_size_limit }}" placeholder="{{ entry_log_size_limit }}" id="input-log_size_limit" class="form-control" />
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
             <div class="col-sm-10">

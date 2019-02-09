@@ -1,10 +1,13 @@
 <?php
+include_once DIR_CATALOG . 'controller/extension/payment/modulbanklib/ModulbankHelper.php';
+
 class ControllerExtensionPaymentModulbank extends Controller
 {
 	private $error = array();
 
 	public function index()
 	{
+		$data = [];
 		$this->load->language('extension/payment/modulbank');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -18,6 +21,13 @@ class ControllerExtensionPaymentModulbank extends Controller
 
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
+
+		$data['text_mode_test']     = $this->language->get('text_mode_test');
+		$data['text_mode_prod']     = $this->language->get('text_mode_prod');
+		$data['text_logging_off']   = $this->language->get('text_logging_off');
+		$data['text_logging_on']    = $this->language->get('text_logging_on');
+		$data['text_log_link']      = $this->url->link('extension/payment/modulbank/logs', 'user_token=' . $this->session->data['user_token'], true);
+		$data['text_download_logs'] = $this->language->get('text_download_logs');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -35,6 +45,12 @@ class ControllerExtensionPaymentModulbank extends Controller
 			$data['error_secret_key'] = $this->error['secret_key'];
 		} else {
 			$data['error_secret_key'] = '';
+		}
+
+		if (isset($this->error['paymentname'])) {
+			$data['error_paymentname'] = $this->error['paymentname'];
+		} else {
+			$data['error_paymentname'] = '';
 		}
 
 		$data['breadcrumbs'] = array();
@@ -58,8 +74,8 @@ class ControllerExtensionPaymentModulbank extends Controller
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
-		$data['vat_list'] = array(
-			'0'      => $this->language->get('text_vat_0'),
+		$data['text_vat_0'] = $this->language->get('text_vat_0');
+		$data['vat_list']   = array(
 			'none'   => $this->language->get('text_vat_none'),
 			'vat0'   => $this->language->get('text_vat_vat0'),
 			'vat10'  => $this->language->get('text_vat_vat10'),
@@ -104,28 +120,38 @@ class ControllerExtensionPaymentModulbank extends Controller
 		);
 
 		$settings = array(
-			'merchant',
-			'secret_key',
-			'mode',
-			'sno',
-			'product_vat',
-			'delivery_vat',
-			'payment_method',
-			'payment_object',
-			'payment_object_delivery',
-			'total',
-			'order_status_id',
-			'refund_order_status_id',
-			'geo_zone_id',
-			'status',
-			'sort_order',
+			'paymentname'             => '',
+			'merchant'                => '',
+			'secret_key'              => '',
+			'test_secret_key'         => '',
+			'mode'                    => 'test',
+			'success_url'             => $this->catalogLink('checkout/success'),
+			'fail_url'                => $this->catalogLink('checkout/fail'),
+			'back_url'                => $this->catalogLink('index.php?route=checkout/checkout'),
+			'sno'                     => 'usn_income_outcome',
+			'product_vat'             => 'none',
+			'delivery_vat'            => 'none',
+			'payment_method'          => 'full_prepayment',
+			'payment_object'          => 'commodity',
+			'payment_object_delivery' => 'service',
+			'logging'                 => 0,
+			'total'                   => '',
+			'order_status_id'         => '5', //Complete
+			'refund_order_status_id'  => '11', //Refunded
+			'geo_zone_id'             => 0,
+			'status'                  => 0,
+			'sort_order'              => '',
+			'log_size_limit'          => 10,
 		);
-		foreach ($settings as $key) {
+
+		foreach ($settings as $key => $default) {
 
 			if (isset($this->request->post['payment_modulbank_' . $key])) {
 				$data['payment_modulbank_' . $key] = $this->request->post['payment_modulbank_' . $key];
-			} else {
+			} elseif ($this->config->has('payment_modulbank_' . $key)) {
 				$data['payment_modulbank_' . $key] = $this->config->get('payment_modulbank_' . $key);
+			} else {
+				$data['payment_modulbank_' . $key] = $default;
 			}
 		}
 
@@ -154,10 +180,42 @@ class ControllerExtensionPaymentModulbank extends Controller
 			$this->error['merchant'] = $this->language->get('error_merchant');
 		}
 
-		if (!$this->request->post['payment_modulbank_secret_key']) {
-			$this->error['secret_key'] = $this->language->get('error_secret_key');
+		if (!$this->request->post['payment_modulbank_paymentname']) {
+			$this->error['paymentname'] = $this->language->get('error_paymentname');
 		}
 
 		return !$this->error;
+	}
+
+	public function logs()
+	{
+		try {
+			ModulbankHelper::sendPackedLogs(DIR_LOGS);
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return;
+		}
+	}
+
+	private function catalogLink($route)
+	{
+		return str_replace(HTTPS_SERVER, HTTPS_CATALOG, $this->url->link($route, '', true));
+	}
+
+	public function install()
+	{
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "modulbank` (
+				order_id		INT(11)  NOT NULL,
+				amount			DECIMAL(13,2) NOT NULL,
+				transaction		VARCHAR(32) NULL,
+				PRIMARY KEY (order_id)
+		)");
+
+	}
+
+	public function uninstall()
+	{
+		$this->db->query(' drop table IF EXISTS `' . DB_PREFIX . 'modulbank`');
 	}
 }
