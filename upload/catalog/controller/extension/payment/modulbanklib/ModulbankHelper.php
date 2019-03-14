@@ -79,27 +79,28 @@ class ModulbankHelper
 		return $response;
 	}
 
-	public static function log($filePath, $message, $category , $maxFileSizeMb = 10, $maxLogFiles = 10, $fileMode = 0664, $dirMode = 0775 ) {
+	public static function log($fileBasePath, $message, $category , $maxFileSizeMb = 10, $maxLogFiles = 10, $fileMode = 0664, $dirMode = 0775 ) {
 		$maxFileSize = $maxFileSizeMb / $maxLogFiles * 1024 * 1024;
+		$filePath = $fileBasePath.".php";
 		$dir = dirname($filePath);
 
 		if (!is_dir($dir)) {
 			@mkdir($dir, $dirMode);
-			chmod($dir, $dirMode);
+			@chmod($dir, $dirMode);
 		}
 
 		$needToRotate = @filesize($filePath) > $maxFileSize;
 		if ($needToRotate) {
-			$file = $filePath;
+			$file = $fileBasePath;
 
 			for ($i = $maxLogFiles; $i >= 0; --$i) {
-				$rotateFile = $file . ($i === 0 ? '' : '.' . $i);
+				$rotateFile = $file . ($i === 0 ? '' : '.' . $i). ".php";
 
 				if (is_file($rotateFile)) {
 					if ($i === $maxLogFiles) {
 						@unlink($rotateFile);
 					} else {
-						@rename($rotateFile, $file . '.' . ($i + 1));
+						@rename($rotateFile, $file . '.' . ($i + 1).".php");
 					}
 				}
 			}
@@ -107,6 +108,7 @@ class ModulbankHelper
 
 		if (!file_exists($filePath)) {
 			@touch($filePath);
+			@file_put_contents($filePath, "#<?php die('Forbidden.'); ?>\n");
 			chmod($filePath, $fileMode);
 		}
 
@@ -155,3 +157,4 @@ class ModulbankHelper
 	}
 
 }
+

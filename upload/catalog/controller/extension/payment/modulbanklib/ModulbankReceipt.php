@@ -107,8 +107,6 @@ class ModulbankReceipt
 
 	public function getJson()
 	{
-		return json_encode($this->getItems());
+		return json_encode($this->getItems(), JSON_HEX_APOS);
 	}
-
-
 }
