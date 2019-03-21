@@ -52,7 +52,8 @@ class ControllerExtensionPaymentModulbank extends Controller
 			} else {
 				$item_vat = $product_vat;
 			}
-			$receipt->addItem($product['name'], $product['price'], $item_vat, $payment_object, $product['quantity']);
+			$name = htmlspecialchars_decode($product['name']);
+			$receipt->addItem($name, $product['price'], $item_vat, $payment_object, $product['quantity']);
 		}
 		$query = $this->db->query("SELECT value FROM " . DB_PREFIX . "order_total WHERE order_id = '" . $order_id . "' and code='shipping'");
 		if (isset($query->row['value']) && $query->row['value']) {
