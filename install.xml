@@ -28,7 +28,7 @@
       <add position="before"><![CDATA[
         $this->load->language('extension/payment/modulbank');
     $this->load->model('extension/payment/modulbank');
-    if ($this->request->get['transaction_id']){
+    if (!empty($this->request->get['transaction_id'])){
       $data['text_message'] .= "<div class='modulbank_payment_status'>";
       $result = $this->model_extension_payment_modulbank->getTransactionStatus($this->request->get['transaction_id']);
       if (isset($result->status) && $result->status == "ok") {
