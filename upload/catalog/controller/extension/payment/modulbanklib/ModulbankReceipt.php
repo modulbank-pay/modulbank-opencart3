@@ -24,7 +24,7 @@ class ModulbankReceipt
 			"quantity"       => round($quantity * 1000),
 			"price"          => round($amount * 100),
 			"vat"            => $taxId,
-			"name"           => $name,
+			"name"           => mb_substr($name, 0, 128),
 			"payment_object" => $payment_object,
 			"payment_method" => $this->paymentMethod,
 			"sno"            => $this->sno,

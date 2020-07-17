@@ -177,6 +177,20 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-voucher-vat">{{ entry_voucher_vat }}</label>
+            <div class="col-sm-10">
+              <select name="payment_modulbank_voucher_vat" id="input-voucher-vat" class="form-control">
+                {% for key, vat in vat_list %}
+                {% if key == payment_modulbank_voucher_vat %}
+                <option value="{{ key }}" selected="selected">{{ vat }}</option>
+                {% else %}
+                <option value="{{ key }}">{{ vat }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-payment-method">{{ entry_payment_method}}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_payment_method" id="input-payment-method" class="form-control">
@@ -210,6 +224,20 @@
               <select name="payment_modulbank_payment_object_delivery" id="input-object-method-delivery" class="form-control">
                 {% for key, object in payment_object_list %}
                 {% if key == payment_modulbank_payment_object_delivery %}
+                <option value="{{ key }}" selected="selected">{{ object }}</option>
+                {% else %}
+                <option value="{{ key }}">{{ object }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-object-method-voucher">{{ entry_payment_object_voucher }}</label>
+            <div class="col-sm-10">
+              <select name="payment_modulbank_payment_object_voucher" id="input-object-method-voucher" class="form-control">
+                {% for key, object in payment_object_list %}
+                {% if key == payment_modulbank_payment_object_voucher %}
                 <option value="{{ key }}" selected="selected">{{ object }}</option>
                 {% else %}
                 <option value="{{ key }}">{{ object }}</option>
