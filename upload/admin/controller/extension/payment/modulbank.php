@@ -137,11 +137,13 @@ class ControllerExtensionPaymentModulbank extends Controller
 			'logging'                 => 0,
 			'total'                   => '',
 			'order_status_id'         => '5', //Complete
+			'confirm_order_status_id' => '5', //Complete
 			'refund_order_status_id'  => '11', //Refunded
 			'geo_zone_id'             => 0,
 			'status'                  => 0,
 			'sort_order'              => '',
 			'log_size_limit'          => 10,
+			'preauth'                 => 0,
 		);
 
 		foreach ($settings as $key => $default) {

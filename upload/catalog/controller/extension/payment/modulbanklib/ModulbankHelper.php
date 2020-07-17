@@ -44,6 +44,14 @@ class ModulbankHelper
 		return $response;
 	}
 
+	public static function capture($data, $key)
+	{
+		$url  = 'https://pay.modulbank.ru/api/v1/capture';
+		$data['signature'] = self::calcSignature($key, $data);
+		$response = self::sendRequest('POST', $url, $data);
+		return $response;
+	}
+
 	public static function getTransactionStatus($merchant, $transaction, $key)
 	{
 		$url  = 'https://pay.modulbank.ru/api/v1/transaction';

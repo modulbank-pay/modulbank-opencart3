@@ -29,18 +29,19 @@ class ModulbankReceipt
 			"payment_method" => $this->paymentMethod,
 			"sno"            => $this->sno,
 		);
-		$this->currentSum += round($amount * 100 * $quantity);
+		$this->currentSum += $amount * 100 * $quantity;
 	}
 
 	private function normalize()
 	{
+		$this->currentSum = round($this->currentSum);
 		if ($this->resultTotal != 0 && $this->resultTotal != $this->currentSum) {
 			$coefficient = $this->resultTotal / $this->currentSum;
 			$realprice   = 0;
 			$aloneId     = null;
 			foreach ($this->items as $index => &$item) {
 				$item['price'] = round($coefficient * $item['price']);
-				$realprice += round($item['price'] * $item['quantity'] / 1000);
+				$realprice += $item['price'] * $item['quantity'] / 1000;
 				if ($aloneId === null && $item['quantity'] === 1000) {
 					$aloneId = $index;
 				}
@@ -59,8 +60,9 @@ class ModulbankReceipt
 				$aloneId = 0;
 			}
 
-			$diff = $this->resultTotal - $realprice;
+			$realprice = round($realprice);
 
+			$diff = $this->resultTotal - $realprice;
 			if (abs($diff) >= 0.001) {
 				if ($this->items[$aloneId]['quantity'] === 1000) {
 					$this->items[$aloneId]['price'] = round($this->items[$aloneId]['price'] + $diff);

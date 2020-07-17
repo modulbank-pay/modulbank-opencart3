@@ -99,6 +99,40 @@
               </select>
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-preauth">{{ entry_preauth }}</label>
+            <div class="col-sm-10">
+              <select name="payment_modulbank_preauth" id="input-preauth" class="form-control">
+                {% if payment_modulbank_preauth == '0' %}
+                <option value="0" selected="selected">{{ text_preauth_off }}</option>
+                {% else %}
+                <option value="0">{{ text_preauth_off }}</option>
+                {% endif %}
+                {% if payment_modulbank_preauth == '1' %}
+                <option value="1" selected="selected">{{ text_preauth_on }}</option>
+                {% else %}
+                <option value="1">{{ text_preauth_on }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-confirm-order-status">{{ entry_confirm_order_status }}</label>
+            <div class="col-sm-10">
+              <select name="payment_modulbank_confirm_order_status_id" id="input-confirm-order-status" class="form-control">
+                {% for order_status in order_statuses %}
+                {% if order_status.order_status_id == payment_modulbank_confirm_order_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                {% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sno">{{ entry_sno }}</label>
             <div class="col-sm-10">
@@ -220,7 +254,7 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-mode">{{ entry_logging }}</label>
+            <label class="col-sm-2 control-label" for="input-logging">{{ entry_logging }}</label>
             <div class="col-sm-10">
               <select name="payment_modulbank_logging" id="input-logging" class="form-control">
                 {% if payment_modulbank_logging == '0' %}
@@ -238,6 +272,8 @@
               <a href="{{ text_log_link }}">{{ text_download_logs}}</a>
             </div>
           </div>
+
+
 
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-log_size_limit">{{ entry_log_size_limit }}</label>

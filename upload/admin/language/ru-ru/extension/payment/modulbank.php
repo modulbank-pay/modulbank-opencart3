@@ -12,6 +12,8 @@ $_['text_mode_prod'] = 'Боевой';
 
 $_['text_logging_off']   = 'Выключено';
 $_['text_logging_on']    = 'Включено';
+$_['text_preauth_off']      = 'Выключено';
+$_['text_preauth_on']       = 'Включено';
 $_['text_download_logs'] = 'Скачать логи';
 
 $_['text_vat_0']      = 'Брать из настроек товара';
@@ -70,12 +72,14 @@ $_['entry_payment_object']          = 'Предмет расчёта';
 $_['entry_payment_object_delivery'] = 'Предмет расчёта на доставку';
 $_['entry_total']                   = 'Сумма';
 $_['entry_order_status']            = 'Статус оплаченного заказа';
+$_['entry_confirm_order_status']    = 'Статус для подтверждения оплаты';
 $_['entry_order_refund_status']     = 'Статус возврата заказа';
 $_['entry_geo_zone']                = 'Гео зона';
 $_['entry_status']                  = 'Статус';
 $_['entry_sort_order']              = 'Сортировка';
 $_['entry_logging']                 = 'Логирование';
 $_['entry_log_size_limit']          = 'Ограничение размеров лога (Mb)';
+$_['entry_preauth']                 = 'Предавторизация';
 
 // Help
 $_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';

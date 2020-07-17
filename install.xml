@@ -1,7 +1,7 @@
 <modification>
   <name>Модульбанк: Интернет-Эквайринг</name>
   <code>modulbank_payment</code>
-  <version>1.0.3</version>
+  <version>1.1.0</version>
   <author>АО КБ «Модульбанк»</author>
   <link>https://modulbank.ru</link>
   <file path="catalog/model/checkout/order.php">
