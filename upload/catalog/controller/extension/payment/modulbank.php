@@ -61,13 +61,14 @@ class ControllerExtensionPaymentModulbank extends Controller
 	{
 		$this->load->model('extension/payment/modulbank');
 		$this->load->model('checkout/order');
-		$this->log($this->request->post, 'callback');
+		$post = $_POST;
+		$this->log($post, 'callback');
 		$key = $this->model_extension_payment_modulbank->getKey();
-		$signature = ModulbankHelper::calcSignature($key, $this->request->post);
+		$signature = ModulbankHelper::calcSignature($key, $post);
 
-		$order_id = $this->request->post['order_id'];
+		$order_id = $post['order_id'];
 
-		if (strcmp($this->request->post['merchant'], $this->config->get('payment_modulbank_merchant')) !== 0) {
+		if (strcmp($post['merchant'], $this->config->get('payment_modulbank_merchant')) !== 0) {
 			$this->error('Wrong merchant');
 		}
 
@@ -78,22 +79,22 @@ class ControllerExtensionPaymentModulbank extends Controller
 		}
 
 		$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-		if ($amount != $this->request->post['amount']) {
+		if ($amount != $post['amount']) {
 			$this->error('Incorrect payment amount');
 		}
 
-		if ($signature === $this->request->post['signature']) {
+		if ($signature === $post['signature']) {
 			$this->load->model('checkout/order');
 			if (
 				(
-					$this->request->post['state'] === 'COMPLETE' ||
-					$this->request->post['state'] === 'AUTHORIZED'
+					$post['state'] === 'COMPLETE' ||
+					$post['state'] === 'AUTHORIZED'
 				) &&
 				$order_info['order_status_id'] != $this->config->get('payment_modulbank_confirm_order_status_id')
 			) {
 				$this->db->query("REPLACE " . DB_PREFIX . "modulbank (order_id, amount, transaction) VALUES ($order_id,'"
-					. $this->db->escape($this->request->post['amount']) . "','"
-					. $this->db->escape($this->request->post['transaction_id']) . "')");
+					. $this->db->escape($post['amount']) . "','"
+					. $this->db->escape($post['transaction_id']) . "')");
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_modulbank_order_status_id'));
 			}
 		} else {
