@@ -47,6 +47,10 @@ class ControllerExtensionPaymentModulbank extends Controller
 			],
 		];
 
+		if(!empty($this->config->get('payment_modulbank_show_payment_methods'))) {
+			$data['form']['show_payment_methods'] = json_encode($this->config->get('payment_modulbank_show_payment_methods'));
+		}
+
 		$key = $this->model_extension_payment_modulbank->getKey();
 
 		$signature = ModulbankHelper::calcSignature($key, $data['form']);

@@ -53,6 +53,9 @@ $_['text_po_agent_commission']      = 'Агентское вознагражде
 $_['text_po_composite']             = 'Составной предмет расчета';
 $_['text_po_another']               = 'Другое';
 
+$_['text_spm_sbp']  = 'СБП';
+$_['text_spm_card'] = 'По карте';
+
 $_['text_modulbank'] = '<img src="view/image/payment/modulbank.png" alt="Модульбанк" title="Модульбанк" style="border: 1px solid #EEEEEE;" />';
 
 // Entry
@@ -82,6 +85,7 @@ $_['entry_sort_order']              = 'Сортировка';
 $_['entry_logging']                 = 'Логирование';
 $_['entry_log_size_limit']          = 'Ограничение размеров лога (Mb)';
 $_['entry_preauth']                 = 'Предавторизация';
+$_['entry_show_payment_methods']    = 'Отображаемые варианты оплаты';
 
 // Help
 $_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';
