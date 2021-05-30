@@ -12,9 +12,9 @@ $_['text_mode_prod'] = 'Боевой';
 
 $_['text_logging_off']   = 'Выключено';
 $_['text_logging_on']    = 'Включено';
+$_['text_download_logs'] = 'Скачать логи';
 $_['text_preauth_off']      = 'Выключено';
 $_['text_preauth_on']       = 'Включено';
-$_['text_download_logs'] = 'Скачать логи';
 
 $_['text_vat_0']      = 'Брать из настроек товара';
 $_['text_vat_none']   = 'Без НДС';
@@ -53,8 +53,12 @@ $_['text_po_agent_commission']      = 'Агентское вознагражде
 $_['text_po_composite']             = 'Составной предмет расчета';
 $_['text_po_another']               = 'Другое';
 
-$_['text_spm_sbp']  = 'СБП';
-$_['text_spm_card'] = 'По карте';
+$_['text_pm_checkbox_tooltip']     = 'Для отображения отдельных методов оплаты установите галочку и выберите интересующие из списка';
+
+$_['text_spm_sbp']        = 'СБП';
+$_['text_spm_card']       = 'По карте';
+$_['text_spm_googlepay']  = 'GooglePay';
+$_['text_spm_applepay']   = 'ApplePay';
 
 $_['text_modulbank'] = '<img src="view/image/payment/modulbank.png" alt="Модульбанк" title="Модульбанк" style="border: 1px solid #EEEEEE;" />';
 
@@ -70,25 +74,26 @@ $_['entry_mode']                    = 'Режим';
 $_['entry_sno']                     = 'Система налогообложения';
 $_['entry_product_vat']             = 'Ставка НДС на товары';
 $_['entry_delivery_vat']            = 'Ставка НДС на доставку';
-$_['entry_voucher_vat']             = 'Ставка НДС на сертификаты';
+$_['entry_voucher_vat']             = 'Ставка НДС на сертификат';
 $_['entry_payment_method']          = 'Метод платежа';
 $_['entry_payment_object']          = 'Предмет расчёта';
 $_['entry_payment_object_delivery'] = 'Предмет расчёта на доставку';
-$_['entry_payment_object_voucher']  = 'Предмет расчёта на сертификаты';
-$_['entry_total']                   = 'Сумма';
+$_['entry_payment_object_voucher']  = 'Предмет расчёта на сертификат';
+$_['entry_total']                   = 'Минимальная сумма';
 $_['entry_order_status']            = 'Статус оплаченного заказа';
-$_['entry_confirm_order_status']    = 'Статус для подтверждения оплаты';
 $_['entry_order_refund_status']     = 'Статус возврата заказа';
 $_['entry_geo_zone']                = 'Гео зона';
 $_['entry_status']                  = 'Статус';
 $_['entry_sort_order']              = 'Сортировка';
 $_['entry_logging']                 = 'Логирование';
 $_['entry_log_size_limit']          = 'Ограничение размеров лога (Mb)';
+$_['entry_confirm_order_status_id']    = 'Статус для подтверждения оплаты';
 $_['entry_preauth']                 = 'Предавторизация';
 $_['entry_show_payment_methods']    = 'Отображаемые варианты оплаты';
+$_['entry_pm_checkbox']             = 'Отображать определённые способы оплаты';
 
 // Help
-$_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';
+$_['help_total'] = 'Ниже этой суммы метод будет недоступен.';
 
 // Error
 $_['error_permission']  = 'Warning: You do not have permission to modify payment Modulbank!';

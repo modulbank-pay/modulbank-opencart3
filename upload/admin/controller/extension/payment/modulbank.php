@@ -28,6 +28,7 @@ class ControllerExtensionPaymentModulbank extends Controller
 		$data['text_logging_on']    = $this->language->get('text_logging_on');
 		$data['text_log_link']      = $this->url->link('extension/payment/modulbank/logs', 'user_token=' . $this->session->data['user_token'], true);
 		$data['text_download_logs'] = $this->language->get('text_download_logs');
+		$data['text_pm_checkbox_tooltip'] = $this->language->get('text_pm_checkbox_tooltip');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -122,6 +123,8 @@ class ControllerExtensionPaymentModulbank extends Controller
 		$data['show_payment_methods_list'] = array(
 			'sbp'  => $this->language->get('text_spm_sbp'),
 			'card' => $this->language->get('text_spm_card'),
+			'googlepay' => $this->language->get('text_spm_googlepay'),
+			'applepay' => $this->language->get('text_spm_applepay'),
 		);
 
 		$settings = array(
@@ -151,7 +154,8 @@ class ControllerExtensionPaymentModulbank extends Controller
 			'sort_order'              => '',
 			'log_size_limit'          => 10,
 			'preauth'                 => 0,
-			'show_payment_methods'    => ['sbp', 'card'],
+			'pm_checkbox'             => 0,
+			'show_payment_methods'    => ['sbp', 'card', 'googlepay', 'applepay'],
 		);
 
 		foreach ($settings as $key => $default) {

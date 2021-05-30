@@ -10,10 +10,10 @@ $_['text_edit']      = 'Настройки Интернет-эквайринга
 $_['text_mode_test'] = 'Test';
 $_['text_mode_prod'] = 'Prod';
 
-$_['text_logging_off']   = 'Off';
-$_['text_logging_on']    = 'On';
-$_['text_preauth_off']      = 'Off';
-$_['text_preauth_on']       = 'On';
+$_['text_logging_off'] = 'Off';
+$_['text_logging_on']  = 'On';
+$_['text_preauth_off'] = 'Off';
+$_['text_preauth_on']  = 'On';
 $_['text_download_logs'] = 'Download logs';
 
 $_['text_vat_0']      = 'Catalog';
@@ -53,8 +53,12 @@ $_['text_po_agent_commission']      = 'agent commission';
 $_['text_po_composite']             = 'composite';
 $_['text_po_another']               = 'another';
 
+$_['text_pm_checkbox_tooltip']     = 'You can choose payments methods you need by checking on checbox and select items';
+
 $_['text_spm_sbp']  = 'SBP';
 $_['text_spm_card'] = 'Card';
+$_['text_spm_googlepay']  = 'GooglePay';
+$_['text_spm_applepay']   = 'ApplePay';
 
 $_['text_modulbank'] = '<img src="view/image/payment/modulbank.png" alt="Модульбанк" title="Модульбанк" style="border: 1px solid #EEEEEE;" />';
 
@@ -70,20 +74,23 @@ $_['entry_mode']                    = 'Mode';
 $_['entry_sno']                     = 'SNO';
 $_['entry_product_vat']             = 'Product VAT';
 $_['entry_delivery_vat']            = 'Delivery VAT';
+$_['entry_voucher_vat']             = 'Voucher VAT';
 $_['entry_payment_method']          = 'Payment method';
 $_['entry_payment_object']          = 'Payment object';
 $_['entry_payment_object_delivery'] = 'Delivery payment object';
+$_['entry_payment_object_voucher']  = 'Voucher payment object';
 $_['entry_total']                   = 'Total';
 $_['entry_order_status']            = 'Order Status';
-$_['entry_confirm_order_status']    = 'Confirm payment status';
 $_['entry_geo_zone']                = 'Geo Zone';
 $_['entry_status']                  = 'Status';
 $_['entry_order_refund_status']     = 'Refund status';
 $_['entry_sort_order']              = 'Sort Order';
 $_['entry_logging']                 = 'Logging';
 $_['entry_log_size_limit']          = 'Log size limit (Mb)';
-$_['entry_preauth']                 = 'Hold';
-$_['entry_show_payment_methods']    = 'Show payment methods';
+$_['entry_confirm_order_status_id']    = 'Capture status';
+$_['entry_preauth']                 = 'preauth';
+$_['entry_show_payment_methods']    = 'Payment methods';
+$_['entry_pm_checkbox']             = 'Custom payment methods list';
 
 // Help
 $_['help_total'] = 'The checkout total the order must reach before this payment method becomes active.';

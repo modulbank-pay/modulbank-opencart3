@@ -47,8 +47,9 @@ class ControllerExtensionPaymentModulbank extends Controller
 			],
 		];
 
-		if(!empty($this->config->get('payment_modulbank_show_payment_methods'))) {
-			$data['form']['show_payment_methods'] = json_encode($this->config->get('payment_modulbank_show_payment_methods'));
+		$methods = $this->config->get('payment_modulbank_show_payment_methods');
+		if($this->config->get('payment_modulbank_pm_checkbox')) {
+			$data['form']['show_payment_methods'] = json_encode($methods);
 		}
 
 		$key = $this->model_extension_payment_modulbank->getKey();
