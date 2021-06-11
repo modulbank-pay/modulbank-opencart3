@@ -11,6 +11,9 @@ class ControllerExtensionPaymentModulbank extends Controller
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/modulbank');
 
+		if (!isset($this->session->data['order_id'])) {
+			return '';
+		}
 		$order_id   = (int) $this->session->data['order_id'];
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 
